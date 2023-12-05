@@ -95,17 +95,6 @@ Besides the required arguments for waveform generation, the LALDict object can i
 
 The LALDict object can be transformed to a Python dictionary and viceversa through the functions `from_lal_dict` and `to_lal_dict` in `gwsignal.core.utils`. #FIXME: does this support all the extra LALDict options?
 
-| Parameter | Definition |
-|-----------|------------|
-| total_mass | $m_1 + m_2$ |
-| mass_ratio | $m_2 / m_1$ |
-| sym_mass_ratio | $\frac{m_1 m_2}{(m_1 + m_2)^2}$ |
-| mass_difference | $m_1 - m_2$ |
-| reduced_mass | $\frac{m_1 m_2}{m_1 + m_2} $ |
-| chirp_mass | $\frac{(m_1 m_2)^{3/5}}{(m_1 + m_2)^{1/5}}$ |
-| spin_norm | $\sqrt{\mathrm{spin\_x}^2 + \mathrm{spin\_y}^2 + \mathrm{spin\_z}^2}$ |
-| spin_tilt | $\arccos(\mathrm{spin\_z} / \mathrm{spin\_norm})$ |
-| spin_phi | $\texttt{atan2}(\mathrm{spin\_y}, \mathrm{spin\_x})$ #FIXME: fix the code, it is using atan of the quotient |
 
 
 
