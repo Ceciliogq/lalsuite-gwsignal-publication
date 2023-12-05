@@ -24,7 +24,7 @@ aas-journal: Astrophysical Journal <- The name of the AAS journal.
 
 # Summary
 
-Summary comes here
+Summary comes here.
 
 # C interface
 The C interface is written in the same language as the traditional LALSimulation, the C99 language. It aims to enhance the waveform generation functionalities by introducing several new features. This interface allows to generate the gravitational wave polarizations and individual modes of all the models implemented in LALSimulation, but also allows the evaluation of external waveform models implemented both in C or in the Python. Furthermore, the interface introduces the flexibility to specify different combinations of input arguments through a dictionary-like object instead of providing a fixed list of parameters. 
