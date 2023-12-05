@@ -1,0 +1,271 @@
+# This is a copy of the upstream conda recipe for this package
+# hosted at github.com/conda-forge/lal-feedstock and licensed
+# under the terms of the BSD 3-Clause license.
+# This is only for CI purposes, and should not be considered
+# production-ready at any time.
+
+{% set name = "lalsimulation" %}
+
+# set version based on nightly
+# (we rebuild the nightly version ourselves because the tarball might have
+#  been generate on a different day)
+{% set base_version = "@BASE_VERSION@" %}
+{% set nightly_version = "@NIGHTLY_VERSION@" %}
+{% if nightly_version %}
+{% set version = base_version + "-dev" + datetime.datetime.utcnow().strftime("%Y%m%d") %}
+{% else %}
+{% set version = base_version %}
+{% endif %}
+
+# dependencies
+{% set lal_version = "@MIN_LAL_VERSION@a0" %}
+{% set swig_version = "@MIN_SWIG_VERSION@" %}
+
+package:
+  name: {{ name }}-split
+  version: {{ version|replace('-', '.') }}
+
+source:
+  url: file://@TARBALL@
+  sha256: @SHA256@
+
+build:
+  error_overdepening: true
+  error_overlinking: true
+  number: 9999
+  script_env:
+    - CI_COMMIT_TAG
+    - CI_PIPELINE_SOURCE
+    - ENABLE_NIGHTLY=@NIGHTLY_VERSION@
+    - GITLAB_CI
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - llvm-openmp  # [osx]
+    - make
+    - pkg-config >=0.18.0
+    - python
+    - swig >={{ swig_version }}
+    # extras for cross-compilation:
+    - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+    - numpy                               # [build_platform != target_platform]
+    - python                              # [build_platform != target_platform]
+    # extras for help2man / make check
+    - astropy  # [build_platform != target_platform]
+    - gwpy  # [build_platform != target_platform]
+  host:
+    - gsl
+    - liblal >={{ lal_version }}
+    - libgomp  # [linux]
+    - llvm-openmp  # [osx]
+    - numpy
+    - pytest
+    - python
+    - python-lal >={{ lal_version }}
+    # extras for help2man / make check
+    - astropy
+    - gwpy
+
+
+outputs:
+  - name: lalsimulation-data
+    build:
+      noarch: generic
+    requirements:
+      run_constrained:
+        - liblalsimulation >=3.1.2
+    files:
+      - etc/conda/*activate.d/*activate-lalsimulation.*
+      - share/lalsimulation/
+    test:
+      commands:
+        - test -f ${LALSIMULATION_DATADIR}/LIGO-P1200087-v18-AdV_DESIGN.txt  # [unix]
+    about:
+      home: https://wiki.ligo.org/Computing/LALSuite
+      doc_url: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
+      dev_url: https://git.ligo.org/lscsoft/lalsuite.git
+      license: GPL-2.0-or-later
+      license_family: GPL
+      license_file: COPYING
+      summary: LSC Algorithm Simulation Library data files
+      description: |
+        The LSC Algorithm Simulation Library for gravitational wave data analysis.
+        This package contains the data files needed to run various applications
+        and routines that use the LAL Simulation library.
+
+  - name: liblalsimulation
+    build:
+      run_exports:
+        - {{ pin_subpackage("liblalsimulation", max_pin="x") }}
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - llvm-openmp  # [osx]
+      host:
+        - gsl
+        - {{ pin_subpackage('lalsimulation-data', exact=True) }}
+        - liblal >={{ lal_version }}
+        - libgomp  # [linux]
+        - llvm-openmp  # [osx]
+        - python
+      run:
+        - gsl
+        - {{ pin_subpackage('lalsimulation-data', exact=True) }}
+        - liblal >={{ lal_version }}
+        - llvm-openmp  # [osx]
+        - python
+      run_constrained:
+        - lalsimulation >=2.5.0
+        - python-lalsimulation >=2.5.0
+    files:
+      # headers
+      - include/lal/*LALSim*.h
+      # SWIG interface files
+      - include/lal/swiglalsimulation.i
+      - include/lal/SWIGLALSim*.i
+      # libraries
+      - lib/lib{{ name }}.*
+      # pkg-config
+      - lib/pkgconfig/lalsimulation.pc
+    test:
+      requires:
+        - pkg-config
+      commands:
+        # check library
+        - test -f ${PREFIX}/lib/liblalsimulation${SHLIB_EXT}  # [unix]
+        # check pkg-config
+        - pkg-config --print-errors --exact-version "${PKG_VERSION}" lalsimulation
+    about:
+      home: https://wiki.ligo.org/Computing/LALSuite
+      doc_url: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
+      dev_url: https://git.ligo.org/lscsoft/lalsuite/
+      license: GPL-2.0-or-later
+      license_family: GPL
+      license_file: COPYING
+      summary: LSC Algorithm Simulation Library
+      description: |
+        The LSC Algorithm Simulation Library for gravitational wave data
+        analysis.
+        This package contains the shared-object libraries needed to run
+        applications that use the LAL Simulation library.
+
+  - name: python-lalsimulation
+    build:
+      ignore_run_exports:
+        - liblalsimulation
+        - numpy
+        - python
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - python
+      host:
+        - gsl
+        - libgomp  # [linux]
+        - liblal >={{ lal_version }}
+        - {{ pin_subpackage('liblalsimulation', exact=True) }}
+        - python
+      run:
+        - astropy
+        - gwpy
+        - gsl
+        - liblal >={{ lal_version }}
+        - {{ pin_subpackage('liblalsimulation', exact=True) }}
+        - mpmath >=1.0.0
+        - {{ pin_compatible('numpy') }}
+        - python
+        - python-lal >={{ lal_version }}
+        - scipy
+    files:
+      # library modules
+      - {{ SP_DIR }}/lalsimulation/
+      # package metadata (.dist-info/.egg-info)
+      - {{ SP_DIR }}/lalsimulation-*/
+    test:
+      requires:
+        - pytest >=4.0.0a0
+      source_files:
+        - test/python
+      commands:
+        - python -m pytest -ra -v --junit-xml=${CI_PROJECT_DIR:-.}/junit-python${PY_VER}.xml test/python
+      imports:
+        - lalsimulation
+        - lalsimulation.nrfits
+        - lalsimulation.tilts_at_infinity
+        - lalsimulation.gwsignal
+    about:
+      home: https://wiki.ligo.org/Computing/LALSuite
+      doc_url: https://lscsoft.docs.ligo.org/lalsuite/lalsimulation/
+      dev_url: https://git.ligo.org/lscsoft/lalsuite/
+      license: GPL-2.0-or-later
+      license_family: GPL
+      license_file: COPYING
+      summary: LSC Algorithm Simulation Library
+      description: |
+        The LSC Algorithm Simulation Library for gravitational wave data
+        analysis.
+        This package contains the python bindings.
+
+  - name: lalsimulation
+    build:
+      ignore_run_exports:
+        - python
+    requirements:
+      build:
+        - {{ compiler('c') }}
+      host:
+        - gsl
+        - liblal >={{ lal_version }}
+        - {{ pin_subpackage('liblalsimulation', exact=True) }}
+        - python
+      run:
+        - gsl
+        - liblal >={{ lal_version }}
+        - {{ pin_subpackage('liblalsimulation', exact=True) }}
+        - mpmath >=1.0.0
+        - python
+        - {{ pin_subpackage('python-lalsimulation', exact=True) }}
+    files:
+      # executables
+      - bin/lalsim*
+      # user env scripts
+      - etc/lalsimulation-user-env.*
+      # manuals
+      - man/man*/lalsim*
+      - share/man/man*/lalsim*
+    test:
+      commands:
+        - lalsimulation_version --verbose
+        - lalsim-bh-qnmode -l 0 -m 0 -s 0
+        - lalsim-bh-ringdown -M 10 -a 0 -r 100 -e 0.001 -i 0 -l 2 -m 2
+        - lalsim-bh-sphwf -a 0 -l 2 -m 2 -s 0
+        - lalsim-burst -w SineGaussian -q 10 -f 100 -H 1e-21 1> /dev/null
+        - lalsim-detector-noise -C -t 1 -r 10
+        - lalsim-detector-strain --help
+        - lalsim-inject --help
+        - lalsim-inspiral > /dev/null
+        - lalsim-ns-eos-table -n ALF1 1> /dev/null
+        - lalsim-ns-mass-radius -n ALF1 1> /dev/null
+        - lalsim-ns-params -n ALF1
+        - lalsim-sgwb --geo -t 1 -r 100 -W 1 1> /dev/null
+        - lalsim-unicorn --help
+
+about:
+  home: https://wiki.ligo.org/Computing/LALSuite
+  doc_url: https://docs.ligo.org/lscsoft/lalsuite/lalsimulation/
+  dev_url: https://git.ligo.org/lscsoft/lalsuite/
+  license: GPL-2.0-or-later
+  license_family: GPL
+  license_file: COPYING
+  summary: LSC Algorithm Simulation Library
+  description: |
+    The LSC Algorithm Simulation Library for gravitational wave data
+    analysis.
+
+extra:
+  feedstock-name: lalsimulation
+  recipe-maintainers:
+    - duncanmmacleod
+    - skymoo

@@ -1,0 +1,360 @@
+lalsimulation (5.3.1-1) unstable; urgency=low
+
+  * Update for 5.3.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 23 Oct 2023 09:38:02 -0700
+
+lalsimulation (5.3.0-1) unstable; urgency=low
+
+  * Update for 5.3.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 06 Oct 2023 12:47:14 -0700
+
+lalsimulation (5.2.1-1) unstable; urgency=low
+
+  * Update for 5.2.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 10 Jul 2023 10:44:28 -0700
+
+lalsimulation (5.2.0-1) unstable; urgency=low
+
+  * Update for 5.2.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 24 Apr 2023 11:02:42 -0700
+
+lalsimulation (5.1.0-1) unstable; urgency=low
+
+  * update for 5.1.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 06 Apr 2023 15:42:10 -0700
+
+lalsimulation (5.0.0-1) unstable; urgency=low
+
+  * update for 5.0.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 06 Feb 2023 15:57:54 -0500
+
+lalsimulation (4.0.2-1) unstable; urgency=low
+
+  * Update for 4.0.2
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 05 Sep 2022 12:03:14 +0100
+
+lalsimulation (4.0.1-1) unstable; urgency=low
+
+  * Update for 4.0.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 18 Aug 2022 15:33:49 -0700
+
+lalsimulation (4.0.0-1) unstable; urgency=low
+
+  * Update for 4.0.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 02 Aug 2022 15:46:38 -0700
+
+lalsimulation (3.1.2-1) unstable; urgency=low
+
+  * Update for 3.1.2
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 03 Mar 2022 10:46:28 -0700
+
+
+lalsimulation (3.1.1-1) unstable; urgency=low
+
+  * Update for 3.1.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 10 Jan 2022 15:20:42 -0700
+
+lalsimulation (3.1.0-1) unstable; urgency=low
+
+  * Update for 3.1.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 03 Dec 2021 11:40:46 -0700
+
+lalsimulation (3.0.0-1) unstable; urgency=low
+
+  * Update for 3.0.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 17 May 2021 15:16:31 -0700
+
+lalsimulation (2.5.1-1) unstable; urgency=low
+
+  * Update for 2.5.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 05 Feb 2021 13:47:18 -0700
+
+lalsimulation (2.5.0-1) unstable; urgency=low
+
+  * Update for 2.5.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 11 Jan 2021 14:58:15 -0700
+
+lalsimulation (2.4.0-1) unstable; urgency=low
+
+  * Update for 2.4.0
+
+ -- Duncan Macleod <duncan.macleod@ligo.org>  Fri, 18 Dec 2020 11:32:00 +0000
+
+lalsimulation (2.3.0-1) unstable; urgency=low
+
+  * Update for 2.3.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Wed, 28 Oct 2020 12:34:36 -0700
+
+lalsimulation (2.2.1-1) unstable; urgency=low
+
+  * Update for 2.2.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 15 Oct 2020 11:15:48 -0700
+
+lalsimulation (2.2.0-1) unstable; urgency=low
+
+  * Update for 2.2.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 20 Jul 2020 10:49:28 -0700
+
+lalsimulation (2.1.0-1) unstable; urgency=low
+
+  * Update for 2.1.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 08 Jun 2020 15:36:49 -0700
+
+lalsimulation (2.0.0-1) unstable; urgency=low
+
+  * Update for 2.0.0
+
+ -- Duncan Macleod <duncan.macleod@ligo.org>  Thu, 19 Mar 2020 11:07:00 -0000
+
+lalsimulation (1.10.1-1) unstable; urgency=low
+
+  * Add a fix to aligned-spin limit
+  * NRHybSur3dq8: Use XLAL_EDOM for extrapolation errors
+  * Fix Bh1-Bh2 swap bug in NRSur7dq4 when m1 < m2
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Wed, 15 Jan 2020 13:17:36 -0700
+
+lalsimulation (1.10.0-1) unstable; urgency=low
+
+  * O3b release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 22 Nov 2019 17:03:41 -0700
+
+lalsimulation (1.9.1-1) unstable; urgency=low
+
+  * O3 point release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Wed, 10 Jul 2019 14:22:10 -0700
+
+lalsimulation (1.9.0-1) unstable; urgency=low
+
+  * O3 release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 23 May 2019 08:54:02 -0700
+
+lalsimulation (1.8.2-1) unstable; urgency=low
+
+  * ER14 release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 25 Feb 2019 09:24:50 -0700
+
+lalsimulation (1.8.1-1) unstable; urgency=low
+
+  * added noise PSD files from LIGO-T1800545
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Wed, 23 Jan 2019 10:28:59 -0700
+
+lalsimulation (1.8.0-1) unstable; urgency=low
+
+  * pre O3 release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 13 Sep 2018 16:09:03 -0700
+
+lalsimulation (1.7.3-1) unstable; urgency=low
+
+  * fix Ldot equation in SpinTaylor
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 16 Mar 2017 08:48:11 -0500
+
+lalsimulation (1.7.2-1) unstable; urgency=low
+
+  * fix bug in SpinTaylor, spin precession vector had incorrect sign
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Wed, 01 Mar 2017 14:14:41 -0600
+
+lalsimulation (1.7.1-1) unstable; urgency=low
+
+  * LALSimulation 1.7.1
+  * fix memory leak in SpinTaylor code
+  * https://bugs.ligo.org/redmine/issues/5182
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Sat, 25 Feb 2017 10:29:37 -0600
+
+lalsimulation (1.7.0-1) unstable; urgency=low
+
+  * LALSimulation 1.7.0
+  * O2 release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 07 Feb 2017 16:55:59 -0600
+
+lalsimulation (1.6.1-1) unstable; urgency=low
+
+  * LALSimulation 1.6.1
+  * ER10 release
+  * Add python3 package
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 26 Sep 2016 11:51:53 -0500
+
+lalsimulation (1.6.0-1) unstable; urgency=low
+
+  * LALSimulation 1.6.0
+  * ER9 release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 23 Jun 2016 16:21:35 -0500
+
+lalsimulation (1.5.0-1) unstable; urgency=low
+
+  * LALSimulation 1.5.0
+  * Pre O2 packaging test release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 25 Mar 2016 09:37:59 -0500
+
+lalsimulation (1.4.1-1) unstable; urgency=low
+
+  * LALSimulation 1.4.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Sun, 30 Aug 2015 22:51:56 -0500
+
+lalsimulation (1.4.0-1) unstable; urgency=low
+
+  * LALSimulation 1.4.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Sat, 01 Aug 2015 19:57:00 -0500
+
+lalsimulation (1.3.0-1) unstable; urgency=low
+
+  * LALSimulation 1.3.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 18 May 2015 14:37:03 -0500
+
+lalsimulation (1.2.4-1) unstable; urgency=low
+
+  * LALSimulation 1.2.4
+  * packaging updates
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 18 Nov 2014 15:31:07 -0600
+
+lalsimulation (1.2.3-1) unstable; urgency=low
+
+  * LALSimulation 1.2.3
+  * fix OpenMPTest
+  * more SWIG binding packaging fixes
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 06 Nov 2014 15:33:01 -0600
+
+lalsimulation (1.2.2-1) unstable; urgency=low
+
+  * LALSimulation 1.2.2
+  * more SWIG binding packaging fixes
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 03 Nov 2014 11:49:05 -0600
+
+lalsimulation (1.2.1-1) unstable; urgency=low
+
+  * LALSimulation 1.2.1
+  * correctly package SWIG bindings
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 28 Oct 2014 12:34:25 -0500
+
+lalsimulation (1.2.0-1) unstable; urgency=low
+
+  * LALSimulation 1.2.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 27 Oct 2014 15:14:09 -0500
+
+lalsimulation (1.1.0-1) unstable; urgency=low
+
+  * LALSimulation 1.1.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 03 Jan 2014 12:09:11 -0600
+
+lalsimulation (1.0.0-1) unstable; urgency=low
+
+  * LALSimulation 1.0.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 27 Jun 2013 10:33:29 -0500
+
+lalsimulation (0.7.0-1) unstable; urgency=low
+
+  * LALSimulation 0.7.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 11 Mar 2013 12:42:52 -0500
+
+lalsimulation (0.6.1-1) unstable; urgency=low
+
+  * LALSimulation 0.6.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 11 Jan 2013 16:34:37 -0600
+
+lalsimulation (0.6.0-1) unstable; urgency=low
+
+  * LALSimulation 0.6.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 10 Dec 2012 11:27:04 -0600
+
+lalsimulation (0.5.0-1) unstable; urgency=low
+
+  * LALSimulation 0.5.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 02 Nov 2012 13:19:26 -0500
+
+lalsimulation (0.4.0-5) unstable; urgency=low
+
+  * convert to source format 3.0 (quilt)
+
+ -- Steffen Grunewald <steffen.grunewald@aei.mpg.de>  Wed, 05 Sep 2012 09:45:00 +0200
+
+lalsimulation (0.4.0-1) unstable; urgency=low
+
+  * LALSimulation 0.4.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Wed, 13 Jun 2012 16:56:12 +0100
+
+lalsimulation (0.3.0-1) unstable; urgency=low
+
+  * LALSimulation 0.3.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 11 May 2012 11:52:29 -0500
+
+lalsimulation (0.2.0-1) unstable; urgency=low
+
+  * LALSimulation 0.2.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 10 Apr 2012 11:29:57 -0500
+
+lalsimulation (0.1.1-1) unstable; urgency=low
+
+  * LALSimulation 0.1.1
+  * add support for "unicorn" injections
+  * update to automake-1.11.2
+  * packaging updates
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 06 Jan 2012 09:47:29 -0600
+
+lalsimulation (0.1.0-1) unstable; urgency=low
+
+  * LALSimulation 0.1.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 13 Dec 2011 13:01:33 -0600
+
+lalsimulation (0.1.0~rc2-1) unstable; urgency=low
+
+  * LALSimulation 0.1.0 Release Candidate 2
+  * packaging updates
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 09 Dec 2011 14:22:15 -0600
+
+lalsimulation (0.1.0~rc1-1) unstable; urgency=low
+
+  * LALSimulation 0.1.0 Release Candidate 1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 06 Dec 2011 15:04:56 -0600

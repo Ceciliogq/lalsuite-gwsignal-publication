@@ -1,0 +1,232 @@
+%define nightly @NIGHTLY_VERSION@%{nil}
+%define release 1
+%define _sysconfdir %{_prefix}/etc
+
+%if "%{?nightly:%{nightly}}%{!?nightly:0}" == "%{nil}"
+%undefine nightly
+%endif
+
+Name: @PACKAGE@
+Version: @BASE_VERSION@
+Release: %{?nightly:0.%{nightly}}%{!?nightly:%{release}}%{?dist}
+Summary: LSC Algorithm Library Applications
+License: GPLv2+
+Source0: https://software.igwn.org/lscsoft/source/lalsuite/%{name}-%{version}%{?nightly:-%{nightly}}.tar.xz
+URL: https://wiki.ligo.org/Computing/LALSuite
+Packager: Adam Mercer <adam.mercer@ligo.org>
+BuildRequires: bc
+BuildRequires: cfitsio-devel
+BuildRequires: fftw-devel
+BuildRequires: libframel-devel >= @MIN_FRAMEL_VERSION@
+BuildRequires: gcc
+BuildRequires: gsl-devel
+BuildRequires: help2man >= 1.37
+BuildRequires: less
+BuildRequires: liblal-devel >= @MIN_LAL_VERSION@
+BuildRequires: liblalburst-devel >= @MIN_LALBURST_VERSION@
+BuildRequires: liblalframe-devel >= @MIN_LALFRAME_VERSION@
+BuildRequires: liblalinference-devel >= @MIN_LALINFERENCE_VERSION@
+BuildRequires: liblalinspiral-devel >= @MIN_LALINSPIRAL_VERSION@
+BuildRequires: liblalmetaio-devel >= @MIN_LALMETAIO_VERSION@
+BuildRequires: liblalpulsar-devel >= @MIN_LALPULSAR_VERSION@
+BuildRequires: liblalsimulation-devel >= @MIN_LALSIMULATION_VERSION@
+BuildRequires: libmetaio-devel >= @MIN_METAIO_VERSION@
+BuildRequires: make
+BuildRequires: pkgconfig >= 0.18.0
+BuildRequires: python%{python3_pkgversion}-lal >= @MIN_LAL_VERSION@
+BuildRequires: python%{python3_pkgversion}-lalframe >= @MIN_LALFRAME_VERSION@
+BuildRequires: python%{python3_pkgversion}-lalmetaio >= @MIN_LALMETAIO_VERSION@
+BuildRequires: python%{python3_pkgversion}-lalpulsar >= @MIN_LALPULSAR_VERSION@
+BuildRequires: python%{python3_pkgversion}-lalsimulation >= @MIN_LALSIMULATION_VERSION@
+BuildRequires: python%{python3_pkgversion}-lalburst >= @MIN_LALBURST_VERSION@
+BuildRequires: python%{python3_pkgversion}-lalinspiral >= @MIN_LALINSPIRAL_VERSION@
+BuildRequires: python%{python3_pkgversion}-lalinference >= @MIN_LALINFERENCE_VERSION@
+BuildRequires: python3-rpm-macros
+Requires: lal >= @MIN_LAL_VERSION@
+Requires: lalburst >= @MIN_LALBURST_VERSION@
+Requires: lalframe >= @MIN_LALFRAME_VERSION@
+Requires: lalinference >= @MIN_LALINFERENCE_VERSION@
+Requires: lalinspiral >= @MIN_LALINSPIRAL_VERSION@
+Requires: lalmetaio >= @MIN_LALMETAIO_VERSION@
+Requires: lalpulsar >= @MIN_LALPULSAR_VERSION@
+Requires: lalsimulation >= @MIN_LALSIMULATION_VERSION@
+Requires: less
+Requires: libframel >= @MIN_FRAMEL_VERSION@
+Requires: libmetaio >= @MIN_METAIO_VERSION@
+Requires: python%{python3_pkgversion}
+Requires: python%{python3_pkgversion}-h5py
+Requires: python%{python3_pkgversion}-lal >= @MIN_LAL_VERSION@
+Requires: python%{python3_pkgversion}-lalframe >= @MIN_LALFRAME_VERSION@
+Requires: python%{python3_pkgversion}-lalmetaio >= @MIN_LALMETAIO_VERSION@
+Requires: python%{python3_pkgversion}-lalpulsar >= @MIN_LALPULSAR_VERSION@
+Requires: python%{python3_pkgversion}-lalsimulation >= @MIN_LALSIMULATION_VERSION@
+Requires: python%{python3_pkgversion}-lalburst >= @MIN_LALBURST_VERSION@
+Requires: python%{python3_pkgversion}-lalinspiral >= @MIN_LALINSPIRAL_VERSION@
+Requires: python%{python3_pkgversion}-lalinference >= @MIN_LALINFERENCE_VERSION@
+Requires: python%{python3_pkgversion}-ligo-lw >= @MIN_PYTHON_LIGO_LW_VERSION@
+Requires: python%{python3_pkgversion}-ligo-segments
+Requires: python%{python3_pkgversion}-matplotlib
+Requires: python%{python3_pkgversion}-numpy
+Requires: python%{python3_pkgversion}-scipy
+Requires: python%{python3_pkgversion}-six
+Requires: python%{python3_pkgversion}-tqdm
+Obsoletes: lalxml < 1.2.5-1
+Obsoletes: lalxml-debuginfo < 1.2.5-1
+Obsoletes: lalxml-devel < 1.2.5-1
+Obsoletes: lalxml-python < 1.2.5-1
+Obsoletes: lalxml-python3 < 1.2.5-1
+Obsoletes: lalxml-octave < 1.2.5-1
+Obsoletes: laldetchar < 0.3.6-1
+Obsoletes: laldetchar-debuginfo < 0.3.6-1
+Obsoletes: laldetchar-devel < 0.3.6-1
+Obsoletes: laldetchar-python < 0.3.6-1
+Obsoletes: laldetchar-octave < 0.3.6-1
+Obsoletes: lalstochastic < 1.1.21-1
+Obsoletes: lalstochastic-debuginfo < 1.1.21-1
+Obsoletes: lalstochastic-devel < 1.1.21-1
+Obsoletes: lalstochastic-python < 1.1.21-1
+Obsoletes: lalstochastic-python3 < 1.1.21-1
+Obsoletes: lalstochastic-octave < 1.1.21-1
+Provides: lalxml = 1.2.5-1
+Provides: lalxml-debuginfo = 1.2.5-1
+Provides: lalxml-devel = 1.2.5-1
+Provides: lalxml-python = 1.2.5-1
+Provides: lalxml-python3 = 1.2.5-1
+Provides: lalxml-octave = 1.2.5-1
+Provides: laldetchar = 0.3.6-1
+Provides: laldetchar-debuginfo = 0.3.6-1
+Provides: laldetchar-devel = 0.3.6-1
+Provides: laldetchar-python = 0.3.6-1
+Provides: laldetchar-octave = 0.3.6-1
+Provides: lalstochastic = 1.1.21-1
+Provides: lalstochastic-debuginfo = 1.1.21-1
+Provides: lalstochastic-devel = 1.1.21-1
+Provides: lalstochastic-python = 1.1.21-1
+Provides: lalstochastic-python3 = 1.1.21-1
+Provides: lalstochastic-octave = 1.1.21-1
+
+Prefix: %{_prefix}
+
+%description
+The LSC Algorithm Library Applications for gravitational wave data analysis.
+This package contains applications that are built on tools in the LSC
+Algorithm Library.
+
+%prep
+%setup -q -n %{name}-%{version}%{?nightly:-%{nightly}}
+
+%build
+%configure --disable-gcc-flags --enable-cfitsio PYTHON=%{__python3}
+%{__make} %{?_smp_mflags} V=1
+
+%check
+%{__make} %{?_smp_mflags} V=1 VERBOSE=1 check
+# check python import
+env PYTHONPATH="%{buildroot}%{python3_sitearch}" \
+%{__python3} -c "import %{name}"
+
+%install
+%make_install
+
+%post
+ldconfig
+
+%postun
+ldconfig
+
+%clean
+[ ${RPM_BUILD_ROOT} != "/" ] && rm -Rf ${RPM_BUILD_ROOT}
+rm -Rf ${RPM_BUILD_DIR}/%{name}-%{version}%{?nightly:-%{nightly}}
+
+%files
+%defattr(-,root,root)
+%doc README.md
+%license COPYING
+%{_bindir}/*
+%{_datadir}/lalapps/*
+%{_mandir}/man1/*
+%{_sysconfdir}/lalapps-user-env.*
+%{python3_sitearch}
+
+# dates should be formatted using: 'date +"%a %b %d %Y"'
+%changelog
+* Fri Oct 06 2023 Adam Mercer <adam.mercer@ligo.org> 9.2.2-1
+- Update for 9.2.2
+
+* Thu Apr 06 2023 Adam Mercer <adam.mercer@ligo.org> 9.2.1-1
+- Update for 9.2.1
+
+* Mon Feb 06 2023 Adam Mercer <adam.mercer@ligo.org> 9.2.0-1
+- Update for 9.2.0
+
+* Thu Nov 03 2022 Adam Mercer <adam.mercer@ligo.org> 9.1.0-1
+- Update for 9.1.0
+
+* Mon Sep 05 2022 Adam Mercer <adam.mercer@ligo.org> 9.0.2-1
+- Update for 9.0.2
+
+* Thu Aug 18 2022 Adam Mercer <adam.mercer@ligo.org> 9.0.1-1
+- Update for 9.0.1
+
+* Tue Aug 02 2022 Adam Mercer <adam.mercer@ligo.org> 9.0.0-1
+- Update fro 9.0.0
+
+* Mon Apr 11 2022 Adam Mercer <adam.mercer@ligo.org> 8.1.1-1
+- Update for 8.1.1
+
+* Thu Mar 03 2022 Adam Mercer <adam.mercer@ligo.org> 8.1.0-1
+- Update for 8.1.0
+
+* Mon Jan 10 2022 Adam Mercer <adam.mercer@ligo.org> 8.0.0-1
+- Update for 8.0.0
+
+* Fri Dec 03 2021 Adam Mercer <adam.mercer@ligo.org> 7.4.0-1
+- Update for 7.4.0
+
+* Tue May 25 2021 Adam Mercer <adam.mercer@ligo.org> 7.3.0-1
+- Update for 7.3.0
+
+* Fri Feb 05 2021 Adam Mercer <adam.mercer@ligo.org> 7.2.0-1
+- Update for 7.2.0
+
+* Mon Jan 11 2021 Adam Mercer <adam.mercer@ligo.org> 7.1.0-1
+- Update for 7.1.0
+
+* Wed Oct 28 2020 Adam Mercer <adam.mercer@ligo.org> 7.0.0-1
+- Update for 7.0.0
+
+* Wed Aug 19 2020 Adam Mercer <adam.mercer@ligo.org> 6.26.1-1
+- Update for 6.26.1
+
+* Mon Jun 08 2020 Adam Mercer <adam.mercer@ligo.org> 6.26.0-1
+- Update for 6.26.0
+
+* Mon Jan 13 2020 Adam Mercer <adam.mercer@ligo.org> 6.25.1-1
+- MakeSFTs.c: fix incorrect XLAL error checks
+
+* Mon Dec 09 2019 Adam Mercer <adam.mercer@ligo.org> 6.25.0-2
+- Packaging updates
+
+* Wed Nov 27 2019 Adam Mercer <adam.mercer@ligo.org> 6.25.0-1
+- O3b release
+
+* Thu May 23 2019 Adam Mercer <adam.mercer@ligo.org> 6.24.0-1
+- O3 Release
+
+* Mon Feb 25 2019 Adam Mercer <adam.mercer@ligo.org> 6.23.0-1
+- ER14 release
+
+* Thu Sep 13 2018 Adam Mercer <adam.mercer@ligo.org> 6.22.0-1
+- Pre O3 release
+
+* Tue Feb 07 2017 Adam Mercer <adam.mercer@ligo.org> 6.21.0-1
+- O2 release
+
+* Mon Sep 26 2016 Adam Mercer <adam.mercer@ligo.org> 6.20.0-1
+- ER10 release
+
+* Thu Jun 23 2016 Adam Mercer <adam.mercer@ligo.org> 6.19.0-1
+- ER9 release
+
+* Fri Mar 25 2016 Adam Mercer <adam.mercer@ligo.org> 6.18.0-1
+- Pre O2 packaging test release

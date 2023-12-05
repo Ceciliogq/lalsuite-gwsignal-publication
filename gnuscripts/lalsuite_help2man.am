@@ -1,0 +1,18 @@
+if HELP2MAN
+
+help2man_MANS = $(bin_PROGRAMS:=.man)
+
+if HAVE_PYTHON
+help2man_MANS += $(pybin_scripts:=.pyman)
+endif
+
+MOSTLYCLEANFILES += $(help2man_MANS) $(help2man_MANS:.man=.man.tmp)
+
+endif
+
+%.pyman: %.py
+	$(AM_V_GEN)$(HELP2MAN) --no-discard-stderr --no-info --source=$(PACKAGE_NAME) --version-string=$(PACKAGE_VERSION) -o $@ $(builddir)/$*
+
+%.man: %
+	$(AM_V_GEN)$(HELP2MAN) --libtool --no-discard-stderr --no-info --source=$(PACKAGE_NAME) --version-string=$(PACKAGE_VERSION) -o $@.tmp $(builddir)/$* && \
+	$(SED) -e 's|lt\\-||g;s|$(abs_builddir)/.libs/||g' $@.tmp > $@ && rm -f $@.tmp

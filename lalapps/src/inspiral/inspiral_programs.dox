@@ -1,0 +1,61 @@
+/**
+\cond LALINSPIRAL
+
+\defgroup lalapps_inspiral_programs Inspiral Search Programs
+\ingroup lalapps_inspiral
+
+This section of \c LALApps contains programs that can be used to search
+interferometer data for inspiral signals using templated matched filtering and
+associated veto strategies.
+
+# Description of the Components of the Pipeline
+
+A short description of each possible part of the inspiral pipeline follows.
+The more detailed description of each command-line argument can be found in
+the specific pages for each part of the code.
+
+## Template Bank Generation
+
+\c lalapps_tmpltbank: Calculates the power spectrum and generates a
+template bank for an analysis
+chunk of LIGO or GEO data. The bank can be for any of the different kinds of
+inspiral signals: TaylorF2, BCV etc. The output is written in an aml file.
+
+There is also the capability of outputting the raw data,
+the response function and the uncalibrated power spectrum in
+frame files.
+
+## Matched Filtering and Injections
+
+\c lalapps_coherent_inspiral: Takes C data frame files as
+outputted by inspiral.c for up to 4 detectors and constructs the optimal
+coherent SNR time series.  Triggers are written to an xml file and the time
+series is written out as a frame file.
+
+## Injection Parameter Generation
+
+\c lalapps_inspinj: Given a mass-file, it generates the mass,
+  distance and time parameters of BNS signals to be injected in the data.
+  It currently generates the signals coming from locations within the
+  galaxies of the Local Group, but the ability to do different distributions
+  will be added soon.
+
+  The result is an xml file.
+
+## Injection in Frames
+
+\c lalapps_inspfrinj: Given a frame file with LIGO or GEO data, it
+injects inspiral signals on the data.
+
+## Splitting Large Template Banks
+
+\c lalapps_splitbank: Given a template bank in an xml file, it splits
+that bank into smaller banks.
+
+ - \ref tmpltbank.c
+ - \ref inspinj.c
+ - \ref inspfrinj.c
+ - \ref splitbank.c
+
+\endcond
+*/

@@ -1,0 +1,269 @@
+lalmetaio (4.0.3-1) unstable; urgency=low
+
+  * Update 4.0.3
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 20 Oct 2023 14:32:51 -0700
+
+lalmetaio (4.0.2-1) unstable; urgency=low
+
+  * Update for 4.0.2
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 06 Oct 2023 11:57:20 -0700
+
+lalmetaio (4.0.1-1) unstable; urgency=low
+
+  * Update for 4.0.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 06 Apr 2023 09:59:16 -0700
+
+lalmetaio (4.0.0-1) unstable; urgency=low
+
+  * Update for 4.0.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 06 Feb 2023 15:52:00 -0500
+
+lalmetaio (3.0.2-1) unstable; urgency=low
+
+  * Update for 3.0.2
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 05 Sep 2022 11:58:56 +0100
+
+lalmetaio (3.0.1-1) unstable; urgency=low
+
+  * Update for 3.0.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 18 Aug 2022 15:20:22 -0700
+
+lalmetaio (3.0.0-1) unstable; urgency=low
+
+  * Update for 3.0.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 02 Aug 2022 15:23:31 -0700
+
+lalmetaio (2.1.2-1) unstable; urgency=low
+
+  * Update for 2.1.2
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 03 Mar 2022 10:42:11 -0700
+
+lalmetaio (2.1.1-1) unstable; uigency=low
+
+  * Update for 2.1.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 10 Jan 2022 15:16:04 -0700
+
+lalmetaio (2.1.0-1) unstable; urgency=low
+
+  * Update for 2.1.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 03 Dec 2021 11:37:01 -0700
+
+lalmetaio (2.0.3-1) unstable; urgency=low
+
+  * Update for 2.0.3
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 17 May 2021 14:57:46 -0700
+
+lalmetaio (2.0.2-1) unstable; urgency=low
+
+  * Update for 2.0.2
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 05 Feb 2021 13:39:16 -0700
+
+lalmetaio (2.0.1-1) unstable; urgency=low
+
+  * Update for 2.0.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 11 Jan 2021 14:44:50 -0700
+
+lalmetaio (2.0.0-1) unstable; urgency=low
+
+  * Update for 2.0.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Wed, 28 Oct 2020 15:17:04 -0700
+
+lalmetaio (1.6.1-1) unstable; urgency=low
+
+  * Update for 1.6.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 08 Jun 2020 15:20:01 -0700
+
+lalmetaio (1.6.0-1) unstable; urgency=low
+
+  * O3b release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 22 Nov 2019 16:57:00 -0700
+
+lalmetaio (1.5.1-1) unstable; urgency=low
+
+  * O3 release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 23 May 2019 08:45:13 -0700
+
+lalmetaio (1.5.0-1) unstable; urgency=low
+
+  * ER14 release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 25 Feb 2019 09:20:25 -0700
+
+lalmetaio (1.4.0-1) unstable; urgency=low
+
+  * Pre O3 release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 13 Sep 2018 15:23:45 -0700
+
+lalmetaio (1.3.1-1) unstable; urgency=low
+
+  * LALMetaIO 1.3.1
+  * O2 release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 07 Feb 2017 16:39:47 -0600
+
+lalmetaio (1.3.0-1) unstable; urgency=low
+
+  * LALMetaIO 1.3.0
+  * ER10 release
+  * Add python3 package
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 26 Sep 2016 11:33:46 -0500
+
+lalmetaio (1.2.8-1) unstable; urgency=low
+
+  * LALMetaIO 1.2.8
+  * ER9 release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 23 Jun 2016 16:05:22 -0500
+
+lalmetaio (1.2.7-1) unstable; urgency=low
+
+  * LALMetaIO 1.2.7
+  * Pre O2 packaging test release
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 25 Mar 2016 09:36:28 -0500
+
+lalmetaio (1.2.6-1) unstable; urgency=low
+
+  * LALMetaIO 1.2.6
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 18 May 2015 14:32:44 -0500
+
+lalmetaio (1.2.5-1) unstable; urgency=low
+
+  * LALMetaIO 1.2.5
+  * packaging updates
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 18 Nov 2014 15:27:16 -0600
+
+lalmetaio (1.2.4-1) unstable; urgency=low
+
+  * LALMetaIO 1.2.4
+  * more SWIG binding packaging fixes
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 06 Nov 2014 15:30:05 -0600
+
+lalmetaio (1.2.3-1) unstable; urgency=low
+
+  * LALMetaIO 1.2.3
+  * more SWIG binding packaging fixes
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 03 Nov 2014 11:44:44 -0600
+
+lalmetaio (1.2.2-1) unstable; urgency=low
+
+  * LALMetaIO 1.2.2
+  * correctly package SWIG bindings
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 28 Oct 2014 12:30:35 -0500
+
+lalmetaio (1.2.1-1) unstable; urgency=low
+
+  * LALMetaIO 1.2.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 27 Oct 2014 15:07:16 -0500
+
+lalmetaio (1.2.0-1) unstable; urgency=low
+
+  * LALMetaIO 1.2.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 03 Jan 2014 12:07:33 -0600
+
+lalmetaio (1.1.1-1) unstable; urgency=low
+
+  * LALMetaIO 1.1.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Thu, 27 Jun 2013 10:26:07 -0500
+
+lalmetaio (1.1.0-1) unstable; urgency=low
+
+  * LALMetaIO 1.1.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 11 Mar 2013 12:35:13 -0500
+
+lalmetaio (1.0.7-1) unstable; urgency=low
+
+  * LALMetaIO 1.0.7
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 11 Jan 2013 16:29:25 -0600
+
+lalmetaio (1.0.6-1) unstable; urgency=low
+
+  * LALMetaIO 1.0.6
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Mon, 10 Dec 2012 11:18:05 -0600
+
+lalmetaio (1.0.5-1) unstable; urgency=low
+
+  * LALMetaIO 1.0.5
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 02 Nov 2012 13:19:14 -0500
+
+lalmetaio (1.0.4-5) unstable; urgency=low
+
+  * convert to source format 3.0 (quilt)
+
+ -- Steffen Grunewald <steffen.grunewald@aei.mpg.de>  Wed, 05 Sep 2012 09:45:00 +0200
+
+lalmetaio (1.0.4-1) unstable; urgency=low
+
+  * LALMetaIO 1.0.4
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 10 Apr 2012 11:28:13 -0500
+
+lalmetaio (1.0.3-1) unstable; urgency=low
+
+  * LALMetaIO 1.0.3
+  * update to automake-1.11.2
+  * packaging updates
+	
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 06 Jan 2012 09:40:10 -0600
+
+lalmetaio (1.0.2-1) unstable; urgency=low
+
+  * LALMetaIO 1.0.2
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 13 Dec 2011 12:43:58 -0600
+
+lalmetaio (1.0.2~rc2-1) unstable; urgency=low
+
+  * LALMetaIO 1.0.2 Release Candidate 2
+  * packaging updates
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Fri, 09 Dec 2011 14:17:45 -0600
+
+lalmetaio (1.0.2~rc1-1) unstable; urgency=low
+
+  * LALMetaIO 1.0.2 Release Candidate 1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Tue, 06 Dec 2011 15:01:08 -0600
+
+lalmetaio (1.0.1-1lscsoft1) unstable; urgency=low
+
+  * LALMetaIO 1.0.1
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Wed, 5 Jan 2011 16:05:38 -0600
+
+lalmetaio (1.0.0-1lscsoft1) unstable; urgency=low
+
+  * LALMetaIO 1.0.0
+
+ -- Adam Mercer <adam.mercer@ligo.org>  Wed, 5 May 2010 09:48:56 -0500

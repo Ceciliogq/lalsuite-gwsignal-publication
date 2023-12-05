@@ -1,0 +1,154 @@
+SUFFIXES = .py
+
+.PHONY: pymodule-all-local
+.PHONY: pyscripts-all-local
+.PHONY: pymodule-mostlyclean-local
+.PHONY: pyscripts-mostlyclean-local
+.PHONY: py-mostlyclean-local
+.PHONY: pybin-install-exec-local
+.PHONY: pybin-uninstall-local
+.PHONY: pybin-dist-hook
+
+all-local: pymodule-all-local pyscripts-all-local
+mostlyclean-local: pymodule-mostlyclean-local pyscripts-mostlyclean-local py-mostlyclean-local
+install-exec-local: pybin-install-exec-local
+uninstall-local: pybin-uninstall-local
+dist-hook: pybin-dist-hook
+
+if HAVE_PYTHON
+
+BUILT_SOURCES += $(pybin_scripts) $(noinst_pybin_scripts)
+MOSTLYCLEANFILES += $(pybin_scripts) $(noinst_pybin_scripts)
+
+uninstalled_runner = gnuscripts/lalsuite_run_uninstalled
+uninstalled_compiler = $(abs_top_srcdir)/$(uninstalled_runner) '$(abs_top_builddir)' '$(abs_builddir)' '$(LDADD)'
+EXTRA_DIST += $(top_srcdir)/$(uninstalled_runner)
+
+pymodule-all-local: $(pymodule_PYTHON)
+	$(AM_V_at)if test "x$(builddir)" != "x$(srcdir)"; then \
+		for file in $(pymodule_PYTHON); do \
+			if test -r "$(srcdir)/$${file}"; then \
+				rm -f "$(builddir)/$${file}" || exit 1; \
+				$(LN_S) "$(srcdir)/$${file}" "$(builddir)/$${file}" || exit 1; \
+			fi; \
+		done; \
+	fi
+pyscripts-all-local: $(pybin_scripts) $(noinst_pybin_scripts)
+	$(AM_V_at)if test "x$(builddir)" != "x$(srcdir)"; then \
+		for file in $(pybin_scripts) $(noinst_pybin_scripts); do \
+			if test -r "$(srcdir)/$${file}.py"; then \
+				rm -f "$(builddir)/$${file}.py" || exit 1; \
+				cp -p "$(srcdir)/$${file}.py" "$(builddir)/$${file}.py" || exit 1; \
+			fi; \
+		done; \
+	fi
+
+pymodule-mostlyclean-local:
+	$(AM_V_at)if test "x$(builddir)" != "x$(srcdir)"; then \
+		for file in $(pymodule_PYTHON); do \
+			if test -r "$(srcdir)/$${file}"; then \
+				echo " rm -f $(builddir)/$${file}"; \
+				rm -f "$(builddir)/$${file}" || exit 1; \
+			fi; \
+		done; \
+	fi; \
+	for file in $(pymodule_PYTHON); do \
+		echo " rm -f $(builddir)/$${file}c $(builddir)/$${file}o"; \
+		rm -f "$(builddir)/$${file}c" "$(builddir)/$${file}o" || exit 1; \
+	done
+pyscripts-mostlyclean-local:
+	$(AM_V_at)if test "x$(builddir)" != "x$(srcdir)"; then \
+		for file in $(pybin_scripts) $(noinst_pybin_scripts); do \
+			if test -r "$(srcdir)/$${file}.py"; then \
+				echo " rm -f $(builddir)/$${file}.py"; \
+				rm -f "$(builddir)/$${file}.py" || exit 1; \
+			fi; \
+		done; \
+	fi
+py-mostlyclean-local:
+	-rm -rf __pycache__ .pytest_cache junit*.xml
+	-for file in $(pybin_scripts) $(noinst_pybin_scripts); do rm -f .libs/$${file}.bin .libs/$${file}.py; done
+
+$(pybin_scripts) $(noinst_pybin_scripts): Makefile
+.py:
+	$(AM_V_GEN)shebang='#!'; dummy_shebang='##(in place of shebang, for consistent line numbers)'; \
+	$(MKDIR_P) .libs || exit 1; \
+	rm -f $@ || exit 1; \
+	if test -x $(srcdir)/$@.py; then \
+		printf "\nERROR: $(srcdir)/$@.py must not be executable\n\n" >&2; \
+		exit 1; \
+	fi; \
+	if test "x`$(SED) -n -e /^$${shebang}/p $(srcdir)/$@.py`" != x; then \
+		printf "\nERROR: $(srcdir)/$@.py must not contain a $${shebang} command line\n\n" >&2; \
+		exit 1; \
+	fi; \
+	echo "$${shebang}/bin/sh" > .libs/$@.bin; \
+	echo "LAL_DATA_PATH=\"$(abs_top_srcdir)/lib:$(abs_top_srcdir)/test:$(LAL_DATA_PATH)\"" | $(SED) 's|:::*|:|g' >> .libs/$@.bin; \
+	echo "export LAL_DATA_PATH" >> .libs/$@.bin; \
+	echo "PYTHONPATH=\"$(abs_builddir):$(abs_srcdir):$(LAL_PYTHON_PATH):\$${PYTHONPATH}\"" | $(SED) 's|:::*|:|g' >> .libs/$@.bin; \
+	echo "export PYTHONPATH" >> .libs/$@.bin; \
+	echo "test -d '$(abs_builddir)/.libs' || mkdir '$(abs_builddir)/.libs' >/dev/null 2>&1" >> .libs/$@.bin; \
+	echo "echo '$${dummy_shebang}' > '$(abs_builddir)/.libs/$@.py'" >> .libs/$@.bin; \
+	echo "$(SED) -e 's|@LALSUITE_BINDIR@|$(abs_builddir)|g' '$(abs_srcdir)/$@.py' >> '$(abs_builddir)/.libs/$@.py' || exit 1" >> .libs/$@.bin; \
+	echo "exec $(uninstalled_compiler) $(PYTHON) '$(abs_builddir)/.libs/$@.py' \"\$$@\"" >> .libs/$@.bin; \
+	echo "exit 1" >> .libs/$@.bin; \
+	chmod +x .libs/$@.bin || exit 1; \
+	mv -f .libs/$@.bin $@
+
+pybin-install-exec-local:
+	$(AM_V_GEN)shebang='#!'; dummy_shebang='##(in place of shebang, for consistent line numbers)'; \
+	$(MKDIR_P) .libs || exit 1; \
+	if test "x$(pybin_scripts)" != x; then \
+		pypath="$(pyexecdir)"; \
+		if test "$(pythondir)" != "$(pyexecdir)"; then \
+			pypath="$${pypath}:$(pythondir)"; \
+		fi; \
+		echo " $(MKDIR_P) '$(DESTDIR)$(bindir)'"; \
+		$(MKDIR_P) "$(DESTDIR)$(bindir)" || exit 1; \
+		if test "x$(exec_prefix)" != "x$(python_exec_prefix)"; then \
+			echo " $(MKDIR_P) '$(DESTDIR)$(pkglibexecdir)'"; \
+			$(MKDIR_P) "$(DESTDIR)$(pkglibexecdir)" || exit 1; \
+		fi; \
+		for file in $(pybin_scripts); do \
+			if test "x$(exec_prefix)" = "x$(python_exec_prefix)"; then \
+				echo "$${shebang}$(PYTHON)" > .libs/$${file}.bin; \
+				$(SED) -e 's|@LALSUITE_BINDIR@|$(bindir)|g' "$(srcdir)/$${file}.py" >> .libs/$${file}.bin || exit 1; \
+			else \
+				echo "$${shebang}/bin/sh" > .libs/$${file}.bin; \
+				echo "PYTHONPATH=\"$${pypath}:\$${PYTHONPATH}\"" >> .libs/$${file}.bin; \
+				echo "export PYTHONPATH" >> .libs/$${file}.bin; \
+				echo "exec $(PYTHON) '$(pkglibexecdir)/$${file}.py' \"\$$@\"" >> .libs/$${file}.bin; \
+				echo "exit 1" >> .libs/$${file}.bin; \
+				$(MKDIR_P) "$(builddir)/.libs" || exit 1; \
+				echo "$${dummy_shebang}" > "$(builddir)/.libs/$${file}.py"; \
+				$(SED) -e 's|@LALSUITE_BINDIR@|$(bindir)|g' "$(srcdir)/$${file}.py" >> "$(builddir)/.libs/$${file}.py" || exit 1; \
+				echo " $(INSTALL_DATA) $(builddir)/.libs/$${file}.py '$(DESTDIR)$(pkglibexecdir)/$${file}.py'"; \
+				$(INSTALL_DATA) "$(builddir)/.libs/$${file}.py" "$(DESTDIR)$(pkglibexecdir)/$${file}.py" || exit 1; \
+			fi; \
+			echo " $(INSTALL_SCRIPT) .libs/$${file}.bin '$(DESTDIR)$(bindir)/$${file}'"; \
+			$(INSTALL_SCRIPT) .libs/$${file}.bin "$(DESTDIR)$(bindir)/$${file}" || exit 1; \
+		done; \
+	fi
+
+pybin-uninstall-local:
+	-for file in $(pybin_scripts); do \
+		rm -f "$(DESTDIR)$(bindir)/$${file}"; \
+		if test "x$(exec_prefix)" != "x$(python_exec_prefix)"; then \
+			rm -f "$(DESTDIR)$(pkglibexecdir)/$${file}.py"; \
+		fi; \
+	done
+
+pybin-dist-hook: $(pybin_scripts) $(noinst_pybin_scripts)
+	for file in $(pybin_scripts) $(noinst_pybin_scripts); do \
+		cp "$(srcdir)/$${file}.py" "$(distdir)/$${file}.py"; \
+	done
+
+else # !HAVE_PYTHON
+
+pymoduledir =
+pymodule_PYTHON =
+pybin_scripts =
+noinst_pybin_scripts =
+pkgpython_PYTHON =
+
+endif # HAVE_PYTHON
