@@ -51,9 +51,9 @@ Now we overview the four different scenarios one can find when using the new int
 
 Alternatively, the C client can call an external Python model, in this case the generator will create an instance of the Python interpreter and generate a Python waveform through embeded Python. The generated object is then transformed to C objects. Currently the Python output is generated as a GWpy Time/Frequency series which is then transformed to a LAL Time/Frequency series. The generator prevents from having to instantiate the Python interpreter in each waveform evaluation, since this is open as long as the generator object is not destroyed. This enables a more efficient evaluation when the model is called multiples times as in parameter estimation.
 
-In the case that a Python client calls a C model, the generated C objects are avaible in Python through the SWIG wrappers that the old LALSimulation already incorporated. In the model is instead a Python model, then everything is calculated within the Python layer and there is no need for any conversion of the output object. Example usages for each of these scenarios can be found #WHERE?
+In the case that a Python client calls a C model, the generated C objects are avaible in Python through the SWIG wrappers that the old LALSimulation already incorporated. If the model is instead a Python model, then everything is calculated within the Python layer and there is no need for any conversion of the output object. Example usages for each of these scenarios can be found #WHERE?
 
-The only extra piece required from the waveform developers is to provide wrappers that interface the generating routines of the model with the methods that the generator expect to find. Templates and detailed instructions for developing these wrappers are available #WHERE? Call external C code from Python?
+The only extra piece required from the waveform developers is to provide wrappers that interface the generating routines of the model with the methods that the generator expects to find. Templates and detailed instructions for developing these wrappers are available #WHERE? Call external C code from Python? #FIXME
 
 ![implementation](implementation.png)
 
