@@ -24,79 +24,40 @@ aas-journal: Astrophysical Journal <- The name of the AAS journal.
 
 # Summary
 
-Summary comes here.
+Waveform models play a foundational role in gravitational waves (GW) astronomy, as they provide theoretical predictions of the GW signal in terms of the source properties, allowing us to extract physical information about the emitting source by comparing these templates to the GW signal registered by the detectors. LALSimulation is the software package within the LIGO-Algorithms Library (LALSuite), which provides a library of all the waveform models employed in the LIGO-Virgo-Kagra data analysis infrastructure. 
 
-# C interface
-The C interface is written in the same language as the traditional LALSimulation, the C99 language. It aims to enhance the waveform generation functionalities by introducing several new features. This interface allows to generate the gravitational wave polarizations and individual modes of all the models implemented in LALSimulation, but also allows the evaluation of external waveform models implemented both in C or in the Python. Furthermore, the interface introduces the flexibility to specify different combinations of input arguments through a dictionary-like object instead of providing a fixed list of parameters. 
+The new waveforms interface of LALSimulation allows us to generate waveforms from models that are not necessarily implemented within LALSimulation. In particular, it supports external models implemented either in the C or Python languages. This eliminates the need of reimplementing the models in the C-99 language of LALSimulation.
 
-In order to leverage the full set of new functionalities, the user will need to switch to a new set of standard functions that superseed the waveform generation functions used so far. However, if new functionalities are not needed, the user can still continue using the same old functions without having to modify their code since the old set of functions are backwards compatible.
+Traditionally, LALSimulation has allowed Python clients to have acces to the waveforms implemented in C through SWIG wrappers. Thus, both C and Python clients could generate C waveforms. With the new interface, the C and Python clients can generate both C and Python waveforms.
 
-In Table \@ref(tab:old-vs-new-functions) it is shown the old and new set of standard functions for waveform generation. Functions in the left and right columns generate exactly the same output.
+Python clients have additionally two possibilities to generate waveforms. One is keep using the traditional SWIG interface. The second is a new Python package called $\texttt{gwsignal}$ which provides additional functionalities and is more flexible than the SWIG interface. $\texttt{gwsignal}$ is integrated and released within LALSimulation.
 
-Table: 
-
-|             | Old functions | New functions |
-|-------------|---------------|---------------|
-| +,x polarizations in Time/Fourier domain | XLALSimInspiralChooseTD(FD)Waveform | XLALSimInspiralGenerateTD(FD)Waveform |
-| +,x polarizations in Time/Fourier domain with conditioning for Fourier transforms | XLALSimInspiralTD(FD)| XLALSimInspiralGenerateTD(FD)Waveform |
-| Individual modes in Time/Fourier domain | XLALSimInspiralChooseTD(FD)Modes | XLALSimInspiralGenerateTD(FD)Modes |
-[comment]: {#tab:old-vs-new-functions caption="This is the table's caption"}
+The new waveforms interface facilitates a swift incorporation of new advancements in waveform modelling into the LVK infrastructure while providing a centralized and standarized framework for the waveform generation of all the models. Additionally, the new interface is backwards compatible with the old interface, meaning that all the previous LALSimulation routines produce the exact same output as before, and there is no need for clients to adapt to the new interface if they do not need extra functionalities.
 
 
-We shall now briefly review the old set of functions and spell out their specific features to better understand the difference with the new ones.
+# Statement of need
 
-- `XLALSimInspiralChooseTDWaveform` generates the time domain polarizations for time domain models but also Fourier domain models by internally performing an inverse Fourier transform.
-- `XLALSimInspiralChooseFDWaveform` generates the Fourier domain polarizations of only Fourier domain models. It does not support time domain models.
-- `XLALSimInspiralTD` generates time domain polarizations both for time and Fourier domain models. When the model is in the time domain, it will condition it so that if a Fourier transform is applied, the result is sensible. In `XLALSimInspiralChooseTDWaveform` this conditioning is not applied. In the case of Fourier domain models, an inverse Fourier transform is applied and the result should agree with `XLALSimInspiralChooseTDWaveform`.
-- `XLALSimInspiralFD` generates Fourier domain polarizations both for time and Fourier domain models. For time domain models it will perform an direct Fourier transform. For Fourier domain models, it only applies the conditioning so that if the waveform is transformed to the time domain the result will be sensible. 
-- `XLALSimInspiralChooseTDModes` generates the individual time domain modes of a time domain model. There are no Fourier transforms or conditioning.
-- `XLALSimInspiralChooseFDModes` generates the individual Fourier domain modes of a Fourier domain model. There are no Fourier transforms or conditioning.
+The continuous improvements in detector's sensitivity for each observing run translate in an exponential growth of detected events, increasing the volume of observed universe thus, augmenting the probability of observing systems with new physics. In order to be able to accurately describe and do not miss any important physical information, the waveform models need to model the subtle characteristic features that are imprint on the GW signal by these new systems. The increased complexity of the parameter space to be explored translates into a much longer sampling time during parameter estimation, which added to the increase of detected events poses a tremendous computational challenge. Therefore there exists a continous urge for the waveform modeling community to provide more accurate and more computationally efficient models that will not miss any physical information from the data and that allow us to carry out the analysis in an affordable timescale and consuming less computational resources. These challenges will be exhacerbated by the development of third-generation and space-based detectors which will lead to the dawn of precision gravitational wave astronomy.
 
-In all the Fourier transforms applied above there is a conditioning step which prepares the waveform so that its transform produces sensible results. The new set of functions can perform the Fourier transforms internally and optionally apply the conditioning, thereby preventing the duplication of the number of functions.
+In order to expedite the production of new waveform models and their incorporation into the LVK data analysis infrastructure, a more modern, versatile and flexible waveforms interface is needed. The LALSimulation package is written in the C-99 language, however sophisticated waveform models have been typically developed using simpler, high-level languages and software packages such as Mathematica or Python. Until now, LALSimulation required the waveform developers to pay the extra effort to implement their models in the C language. The reimplementation of the model in a different, lower-level language and the subsequent review of this software supposed a daunting task for waveform modelers who many times had to learn this new language, get used to the internal functioning of LALSimulation and spend their time as software engineers rather than as modellers. This additional step has been slowing down the development of waveform models so far, but also prevented the incorporation of more advanced tools that are not available (or difficult to use) in the C language, such as machine learning libraries, GPU support, ODEs solvers, etc. The Python language instead provides a rich ecosystem of cutting-edge libraries in a high-level language, which is simpler to use, easier to read and extend, and seamingly works across platforms. This has turned Python into a very popular and extended language in the scientific community. In the last years, many GW clients have also transitioned to this language, leading to a burst of GW Python packages in scenarios such as GW inference and analysis (GWpy, Bilby, PESummary, Asimov), likelihood acceleration with ROQ models (PyROQ), low-latency searches (PyCBC, PyCWB), etc. GW models are also starting to be indepently delivered and published as Python packages (surro, pyseobnr). 
 
-The old set of functions requires a fixed list of input parameters, which are different between the polarizations and modes functions and that may have different names for the same parameter. The new functions instead require only two input arguments, which are the same for all the functions, meaning that with the same two objects, one can evaluate the whole set of new functions. The two arguments comprise: First, a dictionary-type (LALDict) object that contains all the physical arguments needed to generate the waveform (those explicitly passed to the old functions) and that provides a standarized naming convention. Second, a generator-type (LALSimInspiralGenerator) object which stores information about the approximant to be used. Both objects and their type are described in more detail later. Below we show an example comparing the input arguments for the old and new functions.
+The new LALSimulation waveform interface facilitates the incorporation of external Python models for their use in the centralized LVK pipelines, which many relies in C software, without the need of a second reimplementation of the model in the C language. This represents the achievement of a paramount milestone, as it frees waveform developers from a enormous workload and allow them to exploit all the advanced tools and techniques provided by the Python language.
 
-```
-XLALSimInspiralChooseTDWaveform(                   XLALSimInspiralGenerateTDWaveform(
- **hplus,                                           **hplus,
- **hcross,                                          **hcross,
- m1, m2, S1x, S1y, S1z, S2x, S2y, S2z,              LALDict *parameters, 
- distance, inclination, phiRef,                     LALSimInspiralGenerator *generator 
- longAscNodes, eccentricity, meanPerAno,           )
- deltaT, f_min, f_ref, 
- LALDict *extra_parameters, 
- Approximant approximant
-)
- ``` 
+# Implementation
 
-The type of hpluss and hcross is REAL8TimeSeries and the rest of arguments in the left function are floats (REAL8). The old functions remain backwards compatible, but they have been transformed into wrappers that employ the new set of functions under-the-hood.
- 
-Finally, both the new and old set of functions support external waveform models implemented either in C or in Python. The difference relies on that the old functions will require to instantiate the Python interpreter in each evaluation, making them very inefficient. The new ones instead, will store the interpreter in the generator object, and subsequent evaluations will reuse it and save computational time.
+The new waveforms interface is devided in two layers: a C layer and a Python layer which determine how the waveform is generated, call the origninal waveform model code and then translate the output accordingly to the corresponding client. The figure sketches the functioning of each layer and the workflow in each case for the waveform generation. Both layers work in a similar manner, only they are written in different languages. An new feature introduced by the new interface, is that allows the user to specify a flexible list of input parameters. Before, it was required to pass a fixed list of arguments (mass components, cartesian spin components, etc). Now one can specify multiple combinations of mass arguments (e.g. total mass and mass ratio) and specify the spins in polar coordinates passing a dictionary-like object. In each of the layers, the input arguments are internally converted into the a standardized list of parameters that will be used to generate the waveform. The waveform generator is a newly introduced object assigned to each waveform model, and comprises specific details of the model. This object determines for example the generating routines that each model supports and can optionally store metadata information about the physical effects that each model describes or their validity region. There exist currently four generating routines: time/Fourier domain polarizations and time/Fourier domain individual modes. These routines take as arguments the dictionary-like specifying the physical source parameters and the generator object mentioned above. The output is then transformed to the appropiate layer if needed, this means for example that C data types are translated to Python data types or viceversa.
 
-Next, we describe more deeply the first of the input arguments for the new set of functions. This is a LALDict object that store the names and values of the physical parameters needed to generate the waveform. Unlike the Python interface, all the arguments are assumed to be expressed in SI units. A list of the supported arguments, their standarized names and their units can be found in LALSimInspiralWaveformParams_common.c. (# Tell more about those parameters?) Each parameter is inserted in the LALDict object with a specific function. For example, the total_mass argument is inserted doing
-```
-LALDict *params = XLALCreateDict();
-REAL8 total_mass_value = 50 * LAL_MSUN_SI;
+Now we overview the four different scenarios one can find when using the new interface and explain in more detail the different paths depicted in the Figure. In the first scenario, we have a C client which decides to use a model implemented in C. In this scenario the workflow is similar to the old interface, everything is generated with C code, but the difference now is that the core waveform model code does not need to be implemented within LALSimulation.
 
-XLALSimInspiralWaveformParamsInsertTotalMass(params, total_mass_value);
-```
-Similarly, the value can be read form the LALDict object with
-```
-REAL8 total_mass_value = XLALSimInspiralWaveformParamsLookupTotalMass(params);
-```
+Alternatively, the C client can call an external Python model, in this case the generator will create an instance of the Python interpreter and generate a Python waveform through embeded Python. The generated object is then transformed to C objects. Currently the Python output is generated as a GWpy Time/Frequency series which is then transformed to a LAL Time/Frequency series. The generator prevents from having to instantiate the Python interpreter in each waveform evaluation, since this is open as long as the generator object is not destroyed. This enables a more efficient evaluation when the model is called multiples times as in parameter estimation.
 
-All the Insert and Lookup functions are declared and defined in the files LALSimInspiralWaveformParams.h(c). The Lookup functions for the mass and spins arguments can internally compute the required parameter from other parameters in the dictionary when this is not explicitly present in the dictionary. For example, the `XLALSimInspiralWaveformParamsLookupMass1(2)` will derive the component masses as long as two mass arguments are present in the dictionary, and at least one of them is dimensional. Consequently, the only forbidden combination is mass_ratio - sym_mass_ratio. The combination chirp_mass - mass_difference does not allow an analytical computation of the component masses and a numerical solver is used instead. If the mass arguments in the dictionary are underspecified of overspecified (the number of mass arguments is lower or larger than 2), an error is raised. If the combination of mass arguments does not allow to distinguish the most massive object, then $m_1 > m_2$ is assumed. This situation happens if the combination does not include the mass_ratio or the mass_difference, since all the other parameters are symmetric for $m_1$, $m_2$. The Lookup functions for the other mass arguments will internally call the LookupMass1(2) and compute the value from the mass components according to the definitions in Table #FIXME.
+In the case that a Python client calls a C model, the generated C objects are avaible in Python through the SWIG wrappers that the old LALSimulation already incorporated. In the model is instead a Python model, then everything is calculated within the Python layer and there is no need for any conversion of the output object. Example usages for each of these scenarios can be found #WHERE?
 
-The spins components can be specified either in cartesian or polar coordinates. One single spin cannot contain a mixture of polar and cartesian components, i.e. to define a spin we will use either the three cartesian components or the three polar ones.
+The only extra piece required from the waveform developers is to provide wrappers that interface the generating routines of the model with the methods that the generator expect to find. Templates and detailed instructions for developing these wrappers are available #WHERE? Call external C code from Python?
 
-In the new set of functions, if the arguments inclination, phi_ref, f22_ref or the spin components are not present in the dictionary, they will be assumed to be zero. If the rest of arguments are not present or cannot be computed, an error is raised.
+![implementation](implementation.png)
 
-Besides the required arguments for waveform generation, the LALDict object can include extra options like the mode array content, tidal or beyond GR parameters, and all the other extra options found in LALSimInspiralWaveformParams.c.
-
-The LALDict object can be transformed to a Python dictionary and viceversa through the functions `from_lal_dict` and `to_lal_dict` in `gwsignal.core.utils`. #FIXME: does this support all the extra LALDict options?
-
-
-
+# Acknowledgements
 
 
 
